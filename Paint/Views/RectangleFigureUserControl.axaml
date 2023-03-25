@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="using:Paint.ViewModels"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Paint.Views.RectangleFigureUserControl">
+
+	<Grid RowDefinitions="30, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, *" ShowGridLines="False" ColumnDefinitions="150, *">
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1">
+			Имя:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2">
+			Начальная точка:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3">
+			Ширина:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4">
+			Высота:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5">
+			Цвет линии:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6">
+			Толщина линии:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7">
+			Цвет заливки:
+		</TextBlock>
+		<TextBox Text="{Binding textBoxWidth}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+		<TextBox Text="{Binding textBoxHeight}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+		<TextBox Text="{Binding textBoxName}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+		<TextBox Text="{Binding textBoxPoints}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+		<NumericUpDown Value="{Binding numericUpDownStroke}" HorizontalContentAlignment="Center"  Width="200" Height="10" FontSize="15" Grid.Row="6" Grid.Column="1"/>
+		<ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="{Binding comboBoxColor}" Width="200" Grid.Column="1" Grid.Row="5">
+			<Rectangle Fill="Red" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Yellow" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Blue" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Green" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Black" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+		</ComboBox>
+		<ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="{Binding comboBoxFillColor}" Width="200" Grid.Column="1" Grid.Row="7">
+			<Rectangle Fill="Red" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Yellow" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Blue" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Green" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+			<Rectangle Fill="Black" Height="20" Width="150" StrokeThickness="2"></Rectangle>
+		</ComboBox>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="8">
+			Угол поворота:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="9">
+			Точка поворота:
+		</TextBlock>
+		<TextBlock FontSize="11" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="10">
+			Точка масштабирования:
+		</TextBlock>
+		<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="11">
+			Ось наклона:
+		</TextBlock>
+		<TextBox Text="{Binding textBoxRenderTransformAngle}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="8" Grid.Column="1"/>
+		<TextBox Text="{Binding textBoxRotateCenter}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="9" Grid.Column="1"/>
+		<TextBox Text="{Binding textBoxScaleTransform}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="10" Grid.Column="1"/>
+		<TextBox Text="{Binding textBoxSkewTransform}" Width="200" FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="11" Grid.Column="1"/>
+	</Grid>
+
+</UserControl>

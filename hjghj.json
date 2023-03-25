@@ -1,0 +1,260 @@
+[
+  {
+    "FigureType": "BrokenLine",
+    "Name": "Petr",
+    "LineXPoint": null,
+    "LineYPoint": null,
+    "XPoint": {
+      "X": 0,
+      "Y": 0,
+      "IsDefault": true
+    },
+    "YPoint": {
+      "X": 0,
+      "Y": 0,
+      "IsDefault": true
+    },
+    "LineThickness": 2,
+    "LineColor": "Red",
+    "GetPoints": [
+      {
+        "X": 455,
+        "Y": 50,
+        "IsDefault": false
+      },
+      {
+        "X": 50,
+        "Y": 100,
+        "IsDefault": false
+      },
+      {
+        "X": 150,
+        "Y": 532,
+        "IsDefault": false
+      },
+      {
+        "X": 888,
+        "Y": 777,
+        "IsDefault": false
+      }
+    ],
+    "FigurePoint": "455 50,50 100,150 532,888 777",
+    "FillColor": null,
+    "RectClassRect": {
+      "X": 0,
+      "Y": 0,
+      "Width": 0,
+      "Height": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "Size": {
+        "AspectRatio": "NaN",
+        "Width": 0,
+        "Height": 0,
+        "IsDefault": true
+      },
+      "Right": 0,
+      "Bottom": 0,
+      "Left": 0,
+      "Top": 0,
+      "TopLeft": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "TopRight": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "BottomLeft": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "BottomRight": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "Center": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "IsEmpty": true
+    },
+    "Width": 0,
+    "Height": 0,
+    "Commands": null,
+    "ActiveButton": false
+  },
+  {
+    "FigureType": "MultipleCorners",
+    "Name": "Ruhid",
+    "LineXPoint": null,
+    "LineYPoint": null,
+    "XPoint": {
+      "X": 0,
+      "Y": 0,
+      "IsDefault": true
+    },
+    "YPoint": {
+      "X": 0,
+      "Y": 0,
+      "IsDefault": true
+    },
+    "LineThickness": 5,
+    "LineColor": "Green",
+    "GetPoints": [
+      {
+        "X": 50,
+        "Y": 100,
+        "IsDefault": false
+      },
+      {
+        "X": 200,
+        "Y": 100,
+        "IsDefault": false
+      },
+      {
+        "X": 200,
+        "Y": 200,
+        "IsDefault": false
+      },
+      {
+        "X": 100,
+        "Y": 200,
+        "IsDefault": false
+      }
+    ],
+    "FigurePoint": "50 100,200 100,200 200,100 200",
+    "FillColor": "Red",
+    "RectClassRect": {
+      "X": 0,
+      "Y": 0,
+      "Width": 0,
+      "Height": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "Size": {
+        "AspectRatio": "NaN",
+        "Width": 0,
+        "Height": 0,
+        "IsDefault": true
+      },
+      "Right": 0,
+      "Bottom": 0,
+      "Left": 0,
+      "Top": 0,
+      "TopLeft": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "TopRight": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "BottomLeft": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "BottomRight": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "Center": {
+        "X": 0,
+        "Y": 0,
+        "IsDefault": true
+      },
+      "IsEmpty": true
+    },
+    "Width": 0,
+    "Height": 0,
+    "Commands": null,
+    "ActiveButton": false
+  },
+  {
+    "FigureType": "Rectangle",
+    "Name": "Anton",
+    "LineXPoint": null,
+    "LineYPoint": null,
+    "XPoint": {
+      "X": 0,
+      "Y": 0,
+      "IsDefault": true
+    },
+    "YPoint": {
+      "X": 0,
+      "Y": 0,
+      "IsDefault": true
+    },
+    "LineThickness": 4,
+    "LineColor": "Red",
+    "GetPoints": null,
+    "FigurePoint": "500 500",
+    "FillColor": "Black",
+    "RectClassRect": {
+      "X": 500,
+      "Y": 500,
+      "Width": 100,
+      "Height": 200,
+      "Position": {
+        "X": 500,
+        "Y": 500,
+        "IsDefault": false
+      },
+      "Size": {
+        "AspectRatio": 0.5,
+        "Width": 100,
+        "Height": 200,
+        "IsDefault": false
+      },
+      "Right": 600,
+      "Bottom": 700,
+      "Left": 500,
+      "Top": 500,
+      "TopLeft": {
+        "X": 500,
+        "Y": 500,
+        "IsDefault": false
+      },
+      "TopRight": {
+        "X": 600,
+        "Y": 500,
+        "IsDefault": false
+      },
+      "BottomLeft": {
+        "X": 500,
+        "Y": 700,
+        "IsDefault": false
+      },
+      "BottomRight": {
+        "X": 600,
+        "Y": 700,
+        "IsDefault": false
+      },
+      "Center": {
+        "X": 550,
+        "Y": 600,
+        "IsDefault": false
+      },
+      "IsEmpty": false
+    },
+    "Width": 100,
+    "Height": 200,
+    "Commands": null,
+    "ActiveButton": false
+  }
+]
