@@ -558,6 +558,7 @@ namespace Paint.ViewModels
             jsonloaders = new JSONLoader();
             xmlsavers = new XMLSavers();
             xmlloaders = new XMLLoader();
+            jsonsavers = new JSONSaver();
             textBoxRenderTransformAngle = "0";
             textBoxRotateCenter = "0 0";
             textBoxScaleTransform = "0 0";
@@ -724,6 +725,8 @@ namespace Paint.ViewModels
 
         public JSONLoader jsonloaders;
 
+        public JSONSaver jsonsavers;
+
         public XMLSavers xmlsavers;
 
         public XMLLoader xmlloaders;
@@ -736,6 +739,10 @@ namespace Paint.ViewModels
             if(PathFile.GetExtension(path) == ".xml")
             {
                 xmlsavers.Save(allShapes, allName, path, newCanvas);
+            }
+            if (PathFile.GetExtension(path) == ".json")
+            {
+                jsonsavers.Save(allShapes, allName, path, newCanvas);
             }
         }
 
