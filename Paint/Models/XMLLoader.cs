@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls.Shapes;
+using Avalonia.Media;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace Paint.Models
@@ -15,54 +17,122 @@ namespace Paint.Models
         public Tuple<ObservableCollection<Shape>, ObservableCollection<ShapeName>> Load(string path)
         {
             string[] Colors = { "Red", "Yellow", "Blue", "Green", "Black" };
-            XDocument xDocument = XDocument.Load(path);
-            LineClass newLine = new LineClass();
-            IEnumerable<Shape>? allLines = xDocument.Element("AllShapes")?
-                .Elements("figure")
-                .Select(
-                    figure =>
-                    {
-                        var figureType = figure.Attribute("Type");
-                        if (figureType.Value == "Line")
-                        {
-                            var figureName = figure.Element("Name");
-                            var figureXPoint = figure.Element("XPoint");
-                            var figureYPoint = figure.Element("YPoint");
-                            var figureThickness = figure.Element("Thickness");
-                            var figureLineColor = figure.Element("LineColor");
-                            return (newLine.LineFunc(figureName.Value, figureXPoint.Value, figureYPoint.Value, figureLineColor.Value,
-                                int.Parse(figureThickness.Value)));
-                        };
-                     return (newLine.LineFunc("UNDEFINED", "0 0", "0 0", "Red", 0));
-                    }
-                );
-            IEnumerable<ShapeName>? allLineName = xDocument.Element("AllShapes")?
-                .Elements("figure")
-                .Select(figure =>
+
+            var ParseAllShapes = new ObservableCollection<Shape>();
+
+            var ParseAllNames = new ObservableCollection<ShapeName>();
+
+            var xmlDoc = new XmlDocument();
+
+            xmlDoc.Load(path);
+
+            var ShapesList = xmlDoc.SelectNodes("//figure");
+
+            foreach(XmlNode ShapeSelect in ShapesList)
+            {
+                string ShapeThickness = ShapeSelect.SelectSingleNode("Thickness")?.InnerText;
+
+                string ShapeStroke = ShapeSelect.SelectSingleNode("LineColor")?.InnerText;
+
+                string ShapeName = ShapeSelect.SelectSingleNode("Name")?.InnerText;
+
+                string ShapeType = ShapeSelect.SelectSingleNode("Type")?.InnerText;
+
+                string ShapePoints = "";
+
+                string ShapeFill = "";
+
+                string ShapeHeight = "";
+
+                string ShapeWidth = "";
+
+                if (ShapeType == "Ellipse" || ShapeType == "Rectangle" || ShapeType == "Polygon" || ShapeType == "Polyline")
                 {
-                    var figureType = figure.Attribute("Type");
-                    if (figureType.Value == "Line")
-                    {
-                        var figureName = figure.Element("Name");
-                        return new ShapeName(figureName.Value, figureType.Value);
-                    }
-                    return new ShapeName("UNDEFINED", "UNDEFINED");
-                });
-            ObservableCollection<Shape> allShapes = new ObservableCollection<Shape>();
-            ObservableCollection<ShapeName> allNames = new ObservableCollection<ShapeName>();
-            foreach (var item in allLines)
-            {
-                allShapes.Add(item);
+                    ShapePoints = ShapeSelect.SelectSingleNode("FigPoints")?.InnerText;
+                }
+
+                if (ShapeType == "Ellipse" || ShapeType == "Rectangle" || ShapeType == "Polygon" || ShapeType == "Path")
+                {
+                    ShapeFill = ShapeSelect.SelectSingleNode("FillColor")?.InnerText;
+                }
+
+                if (ShapeType == "Ellipse" || ShapeType == "Rectangle")
+                {
+                    ShapeHeight = ShapeSelect.SelectSingleNode("Height")?.InnerText;
+                    ShapeWidth = ShapeSelect.SelectSingleNode("Width")?.InnerText;
+                }
+
+                /////////////////////////////// RENDER TRANSFORM AND PATH //////////////////////////////////////
+
+                string ShapeSkew = ShapeSelect.SelectSingleNode("Skew")?.InnerText;
+
+                string ShapeScale = ShapeSelect.SelectSingleNode("Scale")?.InnerText;
+
+                string ShapeRotateCenter = ShapeSelect.SelectSingleNode("RotateCenter")?.InnerText;
+
+                string ShapeRotateAngle = ShapeSelect.SelectSingleNode("RotateAngel")?.InnerText;
+
+                if (ShapeType == "Path" )
+
+                {
+                    string PathCommands = ShapeSelect.SelectSingleNode("Commands")?.InnerText;
+
+                    MixLineClass newMixLine = new MixLineClass();
+
+                    ParseAllShapes.Add(newMixLine.PathFunc(ShapeName, PathCommands, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
+                   
+                    ParseAllNames.Add(new ShapeName(ShapeName, ShapeType, PathCommands, ShapeRotateAngle, ShapeRotateCenter, ShapeScale, ShapeSkew));
+                }
+                else
+                {
+                    ParseAllNames.Add(new ShapeName(ShapeName, ShapeType, ShapeRotateAngle, ShapeRotateCenter, ShapeScale, ShapeSkew));
+                }
+                
+                /////////////////////////////////////////////// PARSE LINE //////////////////////////////////////////////
+
+                if (ShapeType == "Line")
+                {
+                    string LineXPoint = ShapeSelect.SelectSingleNode("XPoint")?.InnerText;
+                    string LineYPoint = ShapeSelect.SelectSingleNode("YPoint")?.InnerText;
+                    LineClass newLine = new LineClass();
+                    ParseAllShapes.Add(newLine.LineFunc(ShapeName, LineXPoint, LineYPoint, ShapeStroke, int.Parse(ShapeThickness)));
+                }
+
+                /////////////////////////////////////////////// PARSE POLYLINE //////////////////////////////////////////////
+
+                if (ShapeType == "Polyline")
+                {
+                    PolylineClass newPoly = new PolylineClass();
+                    ParseAllShapes.Add(newPoly.PolyLineFunc(ShapeName, ShapePoints, ShapeStroke, int.Parse(ShapeThickness)));
+                }
+
+                /////////////////////////////////////////////// PARSE POLYGON //////////////////////////////////////////////
+
+                if (ShapeType == "Polygon")
+                {
+                    MultipleCornersClass newPolygon = new MultipleCornersClass();
+                    ParseAllShapes.Add(newPolygon.PolygonFunc(ShapeName, ShapePoints, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
+                }
+
+                /////////////////////////////////////////////// PARSE ELLIPSE //////////////////////////////////////////////
+
+                if (ShapeType == "Ellipse")
+                {
+                    EllipseClass newEllipse = new EllipseClass();
+                    ParseAllShapes.Add(newEllipse.EllipseFunc(ShapeName, ShapePoints, ShapeWidth, ShapeHeight, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
+                }
+
+                /////////////////////////////////////////////// PARSE Rectangle //////////////////////////////////////////////
+
+                if (ShapeType == "Rectangle")
+                {
+                    RectangleClass newRectangle = new RectangleClass();
+                    ParseAllShapes.Add(newRectangle.RectangleFunc(ShapeName, ShapePoints, ShapeWidth, ShapeHeight, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
+                }
+
             }
-            foreach(var item in allLineName)
-            {
-                allNames.Add(item);
-            }
 
-
-
-            
-            return Tuple.Create(allShapes, allNames);
+            return Tuple.Create(ParseAllShapes, ParseAllNames);
         }
     }
 }

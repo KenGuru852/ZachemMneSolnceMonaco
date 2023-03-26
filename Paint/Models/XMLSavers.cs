@@ -42,12 +42,20 @@ namespace Paint.Models
                     //comboBoxColor = FindColor(allShapes[index].Stroke.ToString());
                     //numericUpDownStroke = int.Parse(allShapes[index].StrokeThickness.ToString());
                     XElement xElementFigure = new XElement("figure");
-                    XAttribute xAttributeFigureType = new XAttribute("Type", shapeNames[i].Type);
-                    XElement xElementFigureName = new XElement("Name", shapeNames[i].Type);
+                    XElement xAttributeFigureType = new XElement("Type", shapeNames[i].Type);
+                    XElement xElementFigureName = new XElement("Name", shapeNames[i].Name);
                     XElement xElementFigureXPoint = new XElement("XPoint", EditLine.StartPoint.ToString());
                     XElement xElementFigureYPoint = new XElement("YPoint", EditLine.EndPoint.ToString());
                     XElement xElementFigureTickness = new XElement("Thickness", shapes[i].StrokeThickness.ToString());
                     XElement xElementFigureLineColor = new XElement("LineColor", shapes[i].Stroke.ToString());
+                    
+                    XElement xElementFigureRotateAngle = new XElement("RotateAngel", shapeNames[i].rotateTransform.Angle.ToString());
+                    string RotateCenter = shapeNames[i].rotateTransform.CenterX.ToString() + " " + shapeNames[i].rotateTransform.CenterY.ToString();
+                    XElement xElementFigureRotateCenter = new XElement("RotateCenter", RotateCenter);
+                    string ScaleFigure = shapeNames[i].scaleTransform.ScaleX.ToString() + " " + shapeNames[i].scaleTransform.ScaleY.ToString();
+                    XElement xElementFigureScaleCenter = new XElement("Scale", ScaleFigure);
+                    string SkewFigure = shapeNames[i].skewTransform.AngleX.ToString() + " " + shapeNames[i].skewTransform.AngleY.ToString();
+                    XElement xElementFigureSkewCenter = new XElement("Skew", SkewFigure);
 
                     xElementFigure.Add(xAttributeFigureType);
                     xElementFigure.Add(xElementFigureName);
@@ -55,6 +63,11 @@ namespace Paint.Models
                     xElementFigure.Add(xElementFigureYPoint);
                     xElementFigure.Add(xElementFigureTickness);
                     xElementFigure.Add(xElementFigureLineColor);
+                    
+                    xElementFigure.Add(xElementFigureRotateAngle);
+                    xElementFigure.Add(xElementFigureRotateCenter);
+                    xElementFigure.Add(xElementFigureScaleCenter);
+                    xElementFigure.Add(xElementFigureSkewCenter);
 
                     xElementFigures.Add(xElementFigure);
                 }
@@ -74,11 +87,19 @@ namespace Paint.Models
                         }
                     }
                     XElement xElementFigure = new XElement("figure");
-                    XAttribute xAttributeFigureType = new XAttribute("Type", shapeNames[i].Type);
+                    XElement xAttributeFigureType = new XElement("Type", shapeNames[i].Type);
                     XElement xElementFigureName = new XElement("Name", shapeNames[i].Name);
                     XElement xElementFigurePoints = new XElement("FigPoints", temp);
                     XElement xElementFigureTickness = new XElement("Thickness", shapes[i].StrokeThickness.ToString());
                     XElement xElementFigureLineColor = new XElement("LineColor", shapes[i].Stroke.ToString());
+
+                    XElement xElementFigureRotateAngle = new XElement("RotateAngel", shapeNames[i].rotateTransform.Angle.ToString());
+                    string RotateCenter = shapeNames[i].rotateTransform.CenterX.ToString() + " " + shapeNames[i].rotateTransform.CenterY.ToString();
+                    XElement xElementFigureRotateCenter = new XElement("RotateCenter", RotateCenter);
+                    string ScaleFigure = shapeNames[i].scaleTransform.ScaleX.ToString() + " " + shapeNames[i].scaleTransform.ScaleY.ToString();
+                    XElement xElementFigureScaleCenter = new XElement("Scale", ScaleFigure);
+                    string SkewFigure = shapeNames[i].skewTransform.AngleX.ToString() + " " + shapeNames[i].skewTransform.AngleY.ToString();
+                    XElement xElementFigureSkewCenter = new XElement("Skew", SkewFigure);
 
 
                     xElementFigure.Add(xAttributeFigureType);
@@ -87,6 +108,11 @@ namespace Paint.Models
                     xElementFigure.Add(xElementFigureTickness);
                     xElementFigure.Add(xElementFigureLineColor);
 
+
+                    xElementFigure.Add(xElementFigureRotateAngle);
+                    xElementFigure.Add(xElementFigureRotateCenter);
+                    xElementFigure.Add(xElementFigureScaleCenter);
+                    xElementFigure.Add(xElementFigureSkewCenter);
                     xElementFigures.Add(xElementFigure);
                 }
                 if (shapeNames[i].Type == "Polygon")
@@ -104,12 +130,20 @@ namespace Paint.Models
                         }
                     }
                     XElement xElementFigure = new XElement("figure");
-                    XAttribute xAttributeFigureType = new XAttribute("Type", shapeNames[i].Type);
+                    XElement xAttributeFigureType = new XElement("Type", shapeNames[i].Type);
                     XElement xElementFigureName = new XElement("Name", shapeNames[i].Name);
                     XElement xElementFigurePoints = new XElement("FigPoints", temp);
                     XElement xElementFigureTickness = new XElement("Thickness", shapes[i].StrokeThickness.ToString());
                     XElement xElementFigureLineColor = new XElement("LineColor", shapes[i].Stroke.ToString());
                     XElement xElementFigureFillColor = new XElement("FillColor", shapes[i].Fill.ToString());
+
+                    XElement xElementFigureRotateAngle = new XElement("RotateAngel", shapeNames[i].rotateTransform.Angle.ToString());
+                    string RotateCenter = shapeNames[i].rotateTransform.CenterX.ToString() + " " + shapeNames[i].rotateTransform.CenterY.ToString();
+                    XElement xElementFigureRotateCenter = new XElement("RotateCenter", RotateCenter);
+                    string ScaleFigure = shapeNames[i].scaleTransform.ScaleX.ToString() + " " + shapeNames[i].scaleTransform.ScaleY.ToString();
+                    XElement xElementFigureScaleCenter = new XElement("Scale", ScaleFigure);
+                    string SkewFigure = shapeNames[i].skewTransform.AngleX.ToString() + " " + shapeNames[i].skewTransform.AngleY.ToString();
+                    XElement xElementFigureSkewCenter = new XElement("Skew", SkewFigure);
 
 
                     xElementFigure.Add(xAttributeFigureType);
@@ -119,6 +153,11 @@ namespace Paint.Models
                     xElementFigure.Add(xElementFigureLineColor);
                     xElementFigure.Add(xElementFigureFillColor);
 
+                    xElementFigure.Add(xElementFigureRotateAngle);
+                    xElementFigure.Add(xElementFigureRotateCenter);
+                    xElementFigure.Add(xElementFigureScaleCenter);
+                    xElementFigure.Add(xElementFigureSkewCenter);
+
                     xElementFigures.Add(xElementFigure);
                 }
                 if (shapeNames[i].Type == "Rectangle" || shapeNames[i].Type == "Ellipse")
@@ -127,7 +166,7 @@ namespace Paint.Models
                     string[] tempe = temp.Split(",");
                     temp = tempe[0] + " " + tempe[1];
                     XElement xElementFigure = new XElement("figure");
-                    XAttribute xAttributeFigureType = new XAttribute("Type", shapeNames[i].Type);
+                    XElement xAttributeFigureType = new XElement("Type", shapeNames[i].Type);
                     XElement xElementFigureName = new XElement("Name", shapeNames[i].Name);
                     XElement xElementFigurePoints = new XElement("FigPoints", temp);
                     XElement xElementFigureHeight = new XElement("Height", shapes[i].Height.ToString());
@@ -135,6 +174,14 @@ namespace Paint.Models
                     XElement xElementFigureTickness = new XElement("Thickness", shapes[i].StrokeThickness.ToString());
                     XElement xElementFigureLineColor = new XElement("LineColor", shapes[i].Stroke.ToString());
                     XElement xElementFigureFillColor = new XElement("FillColor", shapes[i].Fill.ToString());
+
+                    XElement xElementFigureRotateAngle = new XElement("RotateAngel", shapeNames[i].rotateTransform.Angle.ToString());
+                    string RotateCenter = shapeNames[i].rotateTransform.CenterX.ToString() + " " + shapeNames[i].rotateTransform.CenterY.ToString();
+                    XElement xElementFigureRotateCenter = new XElement("RotateCenter", RotateCenter);
+                    string ScaleFigure = shapeNames[i].scaleTransform.ScaleX.ToString() + " " + shapeNames[i].scaleTransform.ScaleY.ToString();
+                    XElement xElementFigureScaleCenter = new XElement("Scale", ScaleFigure);
+                    string SkewFigure = shapeNames[i].skewTransform.AngleX.ToString() + " " + shapeNames[i].skewTransform.AngleY.ToString();
+                    XElement xElementFigureSkewCenter = new XElement("Skew", SkewFigure);
 
 
                     xElementFigure.Add(xAttributeFigureType);
@@ -146,6 +193,11 @@ namespace Paint.Models
                     xElementFigure.Add(xElementFigureLineColor);
                     xElementFigure.Add(xElementFigureFillColor);
 
+                    xElementFigure.Add(xElementFigureRotateAngle);
+                    xElementFigure.Add(xElementFigureRotateCenter);
+                    xElementFigure.Add(xElementFigureScaleCenter);
+                    xElementFigure.Add(xElementFigureSkewCenter);
+
                     xElementFigures.Add(xElementFigure);
                 }
 
@@ -154,19 +206,32 @@ namespace Paint.Models
                     Path EditPath = (Path)shapes[i];
                     //textBoxCommandPath = EditPath.Data.ToString();
                     XElement xElementFigure = new XElement("figure");
-                    XAttribute xAttributeFigureType = new XAttribute("Type", shapeNames[i].Type);
+                    XElement xAttributeFigureType = new XElement("Type", shapeNames[i].Type);
                     XElement xElementFigureName = new XElement("Name", shapeNames[i].Name);
-                    XElement xElementFigureCommands = new XElement("Commands", EditPath.Data.ToString());
+                    XElement xElementFigureCommands = new XElement("Commands", shapeNames[i].pathCommands);
                     XElement xElementFigureTickness = new XElement("Thickness", shapes[i].StrokeThickness.ToString());
                     XElement xElementFigureLineColor = new XElement("LineColor", shapes[i].Stroke.ToString());
                     XElement xElementFigureFillColor = new XElement("FillColor", shapes[i].Fill.ToString());
 
+                    XElement xElementFigureRotateAngle = new XElement("RotateAngel", shapeNames[i].rotateTransform.Angle.ToString());
+                    string RotateCenter = shapeNames[i].rotateTransform.CenterX.ToString() + " " + shapeNames[i].rotateTransform.CenterY.ToString();
+                    XElement xElementFigureRotateCenter = new XElement("RotateCenter", RotateCenter);
+                    string ScaleFigure = shapeNames[i].scaleTransform.ScaleX.ToString() + " " + shapeNames[i].scaleTransform.ScaleY.ToString();
+                    XElement xElementFigureScaleCenter = new XElement("Scale", ScaleFigure);
+                    string SkewFigure = shapeNames[i].skewTransform.AngleX.ToString() + " " + shapeNames[i].skewTransform.AngleY.ToString();
+                    XElement xElementFigureSkewCenter = new XElement("Skew", SkewFigure);
+                    //path
                     xElementFigure.Add(xAttributeFigureType);
                     xElementFigure.Add(xElementFigureName);
                     xElementFigure.Add(xElementFigureCommands);
                     xElementFigure.Add(xElementFigureTickness);
                     xElementFigure.Add(xElementFigureLineColor);
                     xElementFigure.Add(xElementFigureFillColor);
+
+                    xElementFigure.Add(xElementFigureRotateAngle);
+                    xElementFigure.Add(xElementFigureRotateCenter);
+                    xElementFigure.Add(xElementFigureScaleCenter);
+                    xElementFigure.Add(xElementFigureSkewCenter);
 
                     xElementFigures.Add(xElementFigure);
                 }

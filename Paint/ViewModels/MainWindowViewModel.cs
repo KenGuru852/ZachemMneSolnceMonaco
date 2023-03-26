@@ -250,11 +250,11 @@ namespace Paint.ViewModels
 
                 var TransGroup = new TransformGroup();
 
-                TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
+                TransGroup.Children.Add(allName[index].rotateTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].skewTransform);
+                TransGroup.Children.Add(allName[index].skewTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].scaleTransform);
+                TransGroup.Children.Add(allName[index].scaleTransform);
 
                 allLines[allLines.Count - 1].RenderTransform = TransGroup;
                 
@@ -275,11 +275,11 @@ namespace Paint.ViewModels
 
                 var TransGroup = new TransformGroup();
 
-                TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
+                TransGroup.Children.Add(allName[index].rotateTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].skewTransform);
+                TransGroup.Children.Add(allName[index].skewTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].scaleTransform);
+                TransGroup.Children.Add(allName[index].scaleTransform);
 
                 allPolyLine[allPolyLine.Count - 1].RenderTransform = TransGroup;
 
@@ -299,11 +299,11 @@ namespace Paint.ViewModels
 
                 var TransGroup = new TransformGroup();
 
-                TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
+                TransGroup.Children.Add(allName[index].rotateTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].skewTransform);
+                TransGroup.Children.Add(allName[index].skewTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].scaleTransform);
+                TransGroup.Children.Add(allName[index].scaleTransform);
 
                 allPolygon[allPolygon.Count - 1].RenderTransform = TransGroup;
 
@@ -323,11 +323,11 @@ namespace Paint.ViewModels
 
                 var TransGroup = new TransformGroup();
 
-                TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
+                TransGroup.Children.Add(allName[index].rotateTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].skewTransform);
+                TransGroup.Children.Add(allName[index].skewTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].scaleTransform);
+                TransGroup.Children.Add(allName[index].scaleTransform);
 
                 allRectangle[allRectangle.Count - 1].RenderTransform = TransGroup;
 
@@ -347,11 +347,11 @@ namespace Paint.ViewModels
 
                 var TransGroup = new TransformGroup();
 
-                TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
+                TransGroup.Children.Add(allName[index].rotateTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].skewTransform);
+                TransGroup.Children.Add(allName[index].skewTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].scaleTransform);
+                TransGroup.Children.Add(allName[index].scaleTransform);
 
                 allEllipse[allEllipse.Count - 1].RenderTransform = TransGroup;
 
@@ -371,11 +371,11 @@ namespace Paint.ViewModels
 
                 var TransGroup = new TransformGroup();
 
-                TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
+                TransGroup.Children.Add(allName[index].rotateTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].skewTransform);
+                TransGroup.Children.Add(allName[index].skewTransform);
 
-                TransGroup.Children.Add(allName[allName.Count - 1].scaleTransform);
+                TransGroup.Children.Add(allName[index].scaleTransform);
 
                 allPath[allPath.Count - 1].RenderTransform = TransGroup;
 
@@ -747,13 +747,21 @@ namespace Paint.ViewModels
             }
             if (PathFile.GetExtension(path) == ".xml")
             {
-                Tuple<ObservableCollection<Shape>, ObservableCollection<ShapeName>> tulup = xmlloaders.Load(path);
-                allShapes = new ObservableCollection<Shape>(tulup.Item1);
-                allName = new ObservableCollection<ShapeName>(tulup.Item2);
                 newCanvas.Children.RemoveAll(allShapes);
-                foreach(var item in allShapes)
+                Tuple<ObservableCollection<Shape>, ObservableCollection<ShapeName>> tulup = xmlloaders.Load(path);
+                ObservableCollection<Shape> temp = new ObservableCollection<Shape>(tulup.Item1);
+                ObservableCollection<ShapeName> temp1 = new ObservableCollection<ShapeName>(tulup.Item2);
+                allShapes = temp;
+                allName = temp1;
+                Debug.WriteLine(allShapes.Count);
+                for (int i = 0; i < allShapes.Count; i++)
                 {
-                    newCanvas.Children.Add(item);
+                        var TransGroup = new TransformGroup();
+                        TransGroup.Children.Add(allName[i].rotateTransform);
+                        TransGroup.Children.Add(allName[i].skewTransform);
+                        TransGroup.Children.Add(allName[i].scaleTransform);
+                        allShapes[i].RenderTransform = TransGroup;
+                        newCanvas.Children.Add(allShapes[i]);
                 }
             }
         }

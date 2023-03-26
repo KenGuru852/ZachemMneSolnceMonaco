@@ -78,9 +78,7 @@ namespace Paint.Models
                 XPoint = split[0];
                 YPoint = split[1];
                 _rotateTransform.CenterX = double.Parse(XPoint);
-                Debug.WriteLine(_rotateTransform.CenterX.ToString());
                 _rotateTransform.CenterY = double.Parse(YPoint);
-                Debug.WriteLine(_rotateTransform.CenterY.ToString());
             }
             if (ScaTrans != "0 0")
             {
@@ -117,40 +115,28 @@ namespace Paint.Models
             _rotateTransform.Angle = double.Parse(RotAngle);
             if (RotPoints != "0 0")
             {
-                string[] split = RotPoints.Split(',');
+                string[] split = RotPoints.Split(' ');
 
-                foreach (var Item in split)
-                {
-                    string[] NewSplit = Item.Split(" ");
-                    XPoint = NewSplit[0];
-                    YPoint = NewSplit[1];
-                }
+                XPoint = split[0];
+                YPoint = split[1];
                 _rotateTransform.CenterX = double.Parse(XPoint);
                 _rotateTransform.CenterY = double.Parse(YPoint);
             }
             if (ScaTrans != "0 0")
             {
-                string[] split = ScaTrans.Split(',');
+                string[] split = ScaTrans.Split(' ');
 
-                foreach (var Item in split)
-                {
-                    string[] NewSplit = Item.Split(" ");
-                    XPoint = NewSplit[0];
-                    YPoint = NewSplit[1];
-                }
+                XPoint = split[0];
+                YPoint = split[1];
                 _scaleTransform.ScaleX = double.Parse(XPoint);
                 _scaleTransform.ScaleY = double.Parse(YPoint);
             }
             if (SkeTrans != "0 0")
             {
-                string[] split = SkeTrans.Split(',');
+                string[] split = SkeTrans.Split(' ');
 
-                foreach (var Item in split)
-                {
-                    string[] NewSplit = Item.Split(" ");
-                    XPoint = NewSplit[0];
-                    YPoint = NewSplit[1];
-                }
+                XPoint = split[0];
+                YPoint = split[1];
                 _skewTransform.AngleX = double.Parse(XPoint);
                 _skewTransform.AngleY = double.Parse(YPoint);
             }

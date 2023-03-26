@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllShapes>
+  <figure>
+    <Type>Path</Type>
+    <Name>CheckPath</Name>
+    <Commands>M 100,400 c 0,0 50,0 50,-50 c 0,0 50,0 50,50 h -30 v 50 l -50,50 Z</Commands>
+    <Thickness>1</Thickness>
+    <LineColor>Red</LineColor>
+    <FillColor>Yellow</FillColor>
+    <RotateAngel>225</RotateAngel>
+    <RotateCenter>50 50</RotateCenter>
+    <Scale>2 2</Scale>
+    <Skew>5 5</Skew>
+  </figure>
+  <figure>
+    <Type>Ellipse</Type>
+    <Name>CheckEllipse</Name>
+    <FigPoints>350 305</FigPoints>
+    <Height>25</Height>
+    <Width>75</Width>
+    <Thickness>2</Thickness>
+    <LineColor>Yellow</LineColor>
+    <FillColor>Blue</FillColor>
+    <RotateAngel>180</RotateAngel>
+    <RotateCenter>40 40</RotateCenter>
+    <Scale>1 1</Scale>
+    <Skew>4 3</Skew>
+  </figure>
+  <figure>
+    <Type>Rectangle</Type>
+    <Name>CheckRectangle</Name>
+    <FigPoints>400 400</FigPoints>
+    <Height>50</Height>
+    <Width>100</Width>
+    <Thickness>3</Thickness>
+    <LineColor>Blue</LineColor>
+    <FillColor>Green</FillColor>
+    <RotateAngel>135</RotateAngel>
+    <RotateCenter>30 30</RotateCenter>
+    <Scale>1 1</Scale>
+    <Skew>10 20</Skew>
+  </figure>
+  <figure>
+    <Type>Polygon</Type>
+    <Name>CheckPolygon</Name>
+    <FigPoints>50 100,200 100,200 200,100 200</FigPoints>
+    <Thickness>4</Thickness>
+    <LineColor>Green</LineColor>
+    <FillColor>Black</FillColor>
+    <RotateAngel>90</RotateAngel>
+    <RotateCenter>35 35</RotateCenter>
+    <Scale>1 1</Scale>
+    <Skew>20 10</Skew>
+  </figure>
+  <figure>
+    <Type>Polyline</Type>
+    <Name>CheckPolyLine</Name>
+    <FigPoints>455 50,50 100,150 532,888 777</FigPoints>
+    <Thickness>5</Thickness>
+    <LineColor>Black</LineColor>
+    <RotateAngel>45</RotateAngel>
+    <RotateCenter>20 20</RotateCenter>
+    <Scale>1 1</Scale>
+    <Skew>0 0</Skew>
+  </figure>
+  <figure>
+    <Type>Line</Type>
+    <Name>CheckLine</Name>
+    <XPoint>50, 500</XPoint>
+    <YPoint>500, 500</YPoint>
+    <Thickness>6</Thickness>
+    <LineColor>Red</LineColor>
+    <RotateAngel>0</RotateAngel>
+    <RotateCenter>0 0</RotateCenter>
+    <Scale>1 1</Scale>
+    <Skew>0 0</Skew>
+  </figure>
+</AllShapes>
