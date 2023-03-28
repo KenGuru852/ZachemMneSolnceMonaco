@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Paint.Models
 {
-    public class MultipleCornersClass : Polygon
+    public class MultipleCornersClass : Shape
     {
         public MultipleCornersClass() { }
         private Polygon _shapePolygon { get; set; }
@@ -42,6 +42,11 @@ namespace Paint.Models
             shapePolygon.StrokeThickness = _LineThickness;
             shapePolygon.Fill = Brush.Parse(_FillColor);
             return shapePolygon;
+        }
+
+        protected override Geometry? CreateDefiningGeometry()
+        {
+            throw new NotImplementedException();
         }
     }
 }

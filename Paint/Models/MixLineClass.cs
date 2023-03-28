@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Paint.Models
 {
-    public class MixLineClass : Path
+    public class MixLineClass : Shape
     {
         public MixLineClass() { }
         private Path _shapePath { get; set; }
@@ -34,6 +34,11 @@ namespace Paint.Models
             shapePath.StrokeThickness = _LineThickness;
             shapePath.Fill = Brush.Parse(_FillColor);
             return shapePath;
+        }
+
+        protected override Geometry? CreateDefiningGeometry()
+        {
+            throw new NotImplementedException();
         }
     }
 }

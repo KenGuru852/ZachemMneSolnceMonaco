@@ -10,6 +10,7 @@ namespace Paint.Models
 {
     public class ShapeName
     {
+        public ShapeName() { }
         private string _Name;
         public string Name { get => _Name; set { _Name = value; } }
 

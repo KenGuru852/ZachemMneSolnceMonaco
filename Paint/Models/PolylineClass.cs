@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Paint.Models
 {
-    public class PolylineClass : Polyline
+    public class PolylineClass : Shape
     {
         public PolylineClass() { }
         private Polyline _shapePolyline { get; set; }
@@ -42,6 +42,11 @@ namespace Paint.Models
             shapePolyline.Stroke = Brush.Parse(_LineColor);
             shapePolyline.StrokeThickness = _LineThickness;
             return shapePolyline;
+        }
+
+        protected override Geometry? CreateDefiningGeometry()
+        {
+            throw new NotImplementedException();
         }
     }
 }

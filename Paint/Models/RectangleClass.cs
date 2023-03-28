@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Paint.Models
 {
-    public class RectangleClass : Rectangle
+    public class RectangleClass : Shape
     {
         public RectangleClass() { }
         private Rectangle _shapeRectangle { get; set; }
@@ -46,6 +46,11 @@ namespace Paint.Models
             shapeRectangle.Height = int.Parse(_Height);
             shapeRectangle.Fill = Brush.Parse(_FillColor);
             return shapeRectangle;
+        }
+
+        protected override Geometry? CreateDefiningGeometry()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -40,6 +40,14 @@ namespace Paint.ViewModels
         EllipseClass newEllipse = new EllipseClass();
         MixLineClass newMixline = new MixLineClass();
 
+        private ObservableCollection<ExtraForJSON> _shapesForParse;
+
+        public ObservableCollection<ExtraForJSON> shapesForParse
+        {
+            get { return _shapesForParse; }
+            set { this.RaiseAndSetIfChanged(ref _shapesForParse, value); }
+        }
+
         private ObservableCollection<Shape> _allShapes;
 
         public ObservableCollection<Shape> allShapes
@@ -91,6 +99,7 @@ namespace Paint.ViewModels
                 string ChooseLB = allName[listBoxIndex].Name;
                 allShapes.RemoveAt(temp);
                 allName.RemoveAt(temp);
+                shapesForParse.RemoveAt(temp);
                 newCanvas.Children.RemoveAt(temp);
                 listBoxIndex = -1;
             }
@@ -114,6 +123,12 @@ namespace Paint.ViewModels
                         allName.Add(new ShapeName(_textBoxName, "Line", textBoxRenderTransformAngle, textBoxRotateCenter,
                         textBoxScaleTransform, textBoxSkewTransform));
 
+                        shapesForParse.Add(new ExtraForJSON("0", textBoxName, textBoxStart,
+                            textBoxEnd, numericUpDownStroke,
+                            Colors[comboBoxColor], textBoxRenderTransformAngle,
+                            textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform));
+
                         var TransGroup = new TransformGroup();
 
                         TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
@@ -133,6 +148,12 @@ namespace Paint.ViewModels
                         allShapes.Add(allPolyLine[allPolyLine.Count - 1]);
                         allName.Add(new ShapeName(_textBoxName, "Polyline", textBoxRenderTransformAngle, textBoxRotateCenter,
                         textBoxScaleTransform, textBoxSkewTransform));
+
+                        shapesForParse.Add(new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, numericUpDownStroke,
+                            Colors[comboBoxColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform));
 
                         var TransGroup = new TransformGroup();
 
@@ -154,6 +175,12 @@ namespace Paint.ViewModels
                         allName.Add(new ShapeName(_textBoxName, "Polygon", textBoxRenderTransformAngle, textBoxRotateCenter,
                         textBoxScaleTransform, textBoxSkewTransform));
 
+                        shapesForParse.Add(new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, numericUpDownStroke,
+                            Colors[comboBoxColor], Colors[comboBoxFillColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter,
+                            textBoxScaleTransform, textBoxSkewTransform, "1"));
+
                         var TransGroup = new TransformGroup();
 
                         TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
@@ -172,6 +199,13 @@ namespace Paint.ViewModels
                         allShapes.Add(allRectangle[allRectangle.Count - 1]);
                         allName.Add(new ShapeName(_textBoxName, "Rectangle", textBoxRenderTransformAngle, textBoxRotateCenter,
                         textBoxScaleTransform, textBoxSkewTransform));
+
+                        shapesForParse.Add(new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, textBoxHeight, textBoxWidth,
+                            numericUpDownStroke, Colors[comboBoxColor],
+                            Colors[comboBoxFillColor], textBoxRenderTransformAngle,
+                            textBoxRotateCenter, textBoxScaleTransform, textBoxSkewTransform));
+
                         var TransGroup = new TransformGroup();
 
                         TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
@@ -190,6 +224,13 @@ namespace Paint.ViewModels
                         allShapes.Add(allEllipse[allEllipse.Count - 1]);
                         allName.Add(new ShapeName(_textBoxName, "Ellipse", textBoxRenderTransformAngle, textBoxRotateCenter,
                         textBoxScaleTransform, textBoxSkewTransform));
+
+                        shapesForParse.Add(new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, textBoxHeight, textBoxWidth, numericUpDownStroke,
+                            Colors[comboBoxColor], Colors[comboBoxFillColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform, "1"));
+                        
                         var TransGroup = new TransformGroup();
 
                         TransGroup.Children.Add(allName[allName.Count - 1].rotateTransform);
@@ -208,6 +249,11 @@ namespace Paint.ViewModels
                         allShapes.Add(allPath[allPath.Count - 1]);
                         allName.Add(new ShapeName(_textBoxName, "Path", textBoxCommandPath, textBoxRenderTransformAngle, textBoxRotateCenter,
                         textBoxScaleTransform, textBoxSkewTransform));
+
+                        shapesForParse.Add(new ExtraForJSON("0", textBoxName, textBoxCommandPath,
+                            numericUpDownStroke, Colors[comboBoxColor], Colors[comboBoxFillColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform, "1", "2", "3", "4"));
 
                         var TransGroup = new TransformGroup();
 
@@ -228,6 +274,10 @@ namespace Paint.ViewModels
             {
                 Editor(listBoxIndex);
             }
+            foreach(var item in shapesForParse)
+            {
+                Debug.WriteLine(item.name + item.type);
+            }
         }
 
         public void Editor(int index)
@@ -245,6 +295,14 @@ namespace Paint.ViewModels
 
                 ShapeName Edits = new ShapeName(textBoxName, "Line", textBoxRenderTransformAngle, textBoxRotateCenter,
                 textBoxScaleTransform, textBoxSkewTransform);
+
+                ExtraForJSON tempJSON = new ExtraForJSON("0", textBoxName, textBoxStart,
+                            textBoxEnd, numericUpDownStroke,
+                            Colors[comboBoxColor], textBoxRenderTransformAngle,
+                            textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform);
+
+                shapesForParse.Replace(shapesForParse[index], tempJSON);
 
                 allName.Replace(allName[index], Edits);
 
@@ -271,6 +329,14 @@ namespace Paint.ViewModels
                 ShapeName Edits = new ShapeName(textBoxName, "Polyline", textBoxRenderTransformAngle, textBoxRotateCenter,
                 textBoxScaleTransform, textBoxSkewTransform);
 
+                ExtraForJSON forJSON = new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, numericUpDownStroke,
+                            Colors[comboBoxColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform);
+
+                shapesForParse.Replace(shapesForParse[index], forJSON);
+
                 allName.Replace(allName[index], Edits);
 
                 var TransGroup = new TransformGroup();
@@ -294,6 +360,14 @@ namespace Paint.ViewModels
 
                 ShapeName Edits = new ShapeName(textBoxName, "Polygon", textBoxRenderTransformAngle, textBoxRotateCenter,
                 textBoxScaleTransform, textBoxSkewTransform);
+
+                ExtraForJSON forJSON3 = new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, numericUpDownStroke,
+                            Colors[comboBoxColor], Colors[comboBoxFillColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter,
+                            textBoxScaleTransform, textBoxSkewTransform, "1");
+
+                shapesForParse.Replace(shapesForParse[index], forJSON3);
 
                 allName.Replace(allName[index], Edits);
 
@@ -319,6 +393,14 @@ namespace Paint.ViewModels
                 ShapeName Edits = new ShapeName(textBoxName, "Rectangle", textBoxRenderTransformAngle, textBoxRotateCenter,
                 textBoxScaleTransform, textBoxSkewTransform);
 
+                ExtraForJSON forJSON4 = new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, textBoxHeight, textBoxWidth,
+                            numericUpDownStroke, Colors[comboBoxColor],
+                            Colors[comboBoxFillColor], textBoxRenderTransformAngle,
+                            textBoxRotateCenter, textBoxScaleTransform, textBoxSkewTransform);
+
+                shapesForParse.Replace(shapesForParse[index], forJSON4);
+
                 allName.Replace(allName[index], Edits);
 
                 var TransGroup = new TransformGroup();
@@ -343,6 +425,15 @@ namespace Paint.ViewModels
                 ShapeName Edits = new ShapeName(textBoxName, "Ellipse", textBoxRenderTransformAngle, textBoxRotateCenter,
                 textBoxScaleTransform, textBoxSkewTransform);
 
+                ExtraForJSON forJSON5 =
+       new ExtraForJSON("0", textBoxName,
+                            textBoxPoints, textBoxHeight, textBoxWidth, numericUpDownStroke,
+                            Colors[comboBoxColor], Colors[comboBoxFillColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform, "1");
+
+                shapesForParse.Replace(shapesForParse[index], forJSON5);
+
                 allName.Replace(allName[index], Edits);
 
                 var TransGroup = new TransformGroup();
@@ -366,6 +457,13 @@ namespace Paint.ViewModels
 
                 ShapeName Edits = new ShapeName(textBoxName, "Path", _textBoxCommandPath, textBoxRenderTransformAngle, textBoxRotateCenter,
                 textBoxScaleTransform, textBoxSkewTransform);
+
+                ExtraForJSON forJSON6 = new ExtraForJSON("0", textBoxName, textBoxCommandPath,
+                            numericUpDownStroke, Colors[comboBoxColor], Colors[comboBoxFillColor],
+                            textBoxRenderTransformAngle, textBoxRotateCenter, textBoxScaleTransform,
+                            textBoxSkewTransform, "1", "2", "3", "4");
+
+                shapesForParse.Replace(shapesForParse[index], forJSON6);
 
                 allName.Replace(allName[index], Edits);
 
@@ -555,14 +653,15 @@ namespace Paint.ViewModels
             allShapes = new ObservableCollection<Shape>();
             listBoxIndex = -1;
             pngsavers = new PNGSaver();
-            jsonloaders = new JSONLoader();
+            jsonloaders = new JSONLoaderNew();
             xmlsavers = new XMLSavers();
             xmlloaders = new XMLLoader();
-            jsonsavers = new JSONSaver();
             textBoxRenderTransformAngle = "0";
             textBoxRotateCenter = "0 0";
             textBoxScaleTransform = "0 0";
             textBoxSkewTransform = "0 0";
+            shapesForParse = new ObservableCollection<ExtraForJSON>();
+            jsonsaver = new JSONSaverNew();
         }
         private UserControl content;
 
@@ -723,13 +822,14 @@ namespace Paint.ViewModels
         }
         public PNGSaver pngsavers;
 
-        public JSONLoader jsonloaders;
-
-        public JSONSaver jsonsavers;
+        public JSONLoaderNew jsonloaders;
 
         public XMLSavers xmlsavers;
 
         public XMLLoader xmlloaders;
+
+        public JSONSaverNew jsonsaver;
+
         public void SaveFigures(string path)
         {
             if (PathFile.GetExtension(path) == ".png")
@@ -742,7 +842,8 @@ namespace Paint.ViewModels
             }
             if (PathFile.GetExtension(path) == ".json")
             {
-                jsonsavers.Save(allShapes, allName, path, newCanvas);
+                jsonsaver.Save(shapesForParse, path);
+                //jsonsavers.Save(allShapes, allName, path, newCanvas);
             }
         }
 
@@ -750,16 +851,144 @@ namespace Paint.ViewModels
         {
             if (PathFile.GetExtension(path) == ".json")
             {
-                allShapes = new ObservableCollection<Shape>(jsonloaders.Load(path));
+                newCanvas.Children.RemoveAll(allShapes);
+                shapesForParse = new ObservableCollection<ExtraForJSON>();
+
+                allName = new ObservableCollection<ShapeName>();
+
+                allShapes = new ObservableCollection<Shape>();
+
+                List<ExtraForJSON> newShapes = jsonloaders.Load(path);
+
+                for (int i = 0; i < newShapes.Count; i++)
+                {
+                    if (newShapes[i].type == "Line")
+                    {
+                        shapesForParse.Add(new ExtraForJSON(newShapes[i].type,
+                            newShapes[i].name, newShapes[i].startPoint,
+                            newShapes[i].endPoint, newShapes[i].lineThickness,
+                            newShapes[i].lineColor, newShapes[i].rotateAngle,
+                            newShapes[i].rotateCenter, newShapes[i].scaleValue,
+                            newShapes[i].skewValue));
+
+                        allName.Add(new ShapeName(newShapes[i].name, newShapes[i].type, newShapes[i].rotateAngle, newShapes[i].rotateCenter, newShapes[i].scaleValue, newShapes[i].skewValue));
+
+                        LineClass new1 = new LineClass();
+
+                        allShapes.Add(new1.LineFunc(newShapes[i].name, newShapes[i].startPoint, newShapes[i].endPoint, newShapes[i].lineColor, newShapes[i].lineThickness));
+                    }
+
+                    if (newShapes[i].type == "Polyline")
+                    {
+                        shapesForParse.Add(new ExtraForJSON(newShapes[i].type,
+                            newShapes[i].name, newShapes[i].figPoints,
+                            newShapes[i].lineThickness,
+                            newShapes[i].lineColor,newShapes[i].rotateAngle,
+                            newShapes[i].rotateCenter, newShapes[i].scaleValue,
+                            newShapes[i].skewValue));
+
+                        allName.Add(new ShapeName(newShapes[i].name, newShapes[i].type, newShapes[i].rotateAngle, newShapes[i].rotateCenter, newShapes[i].scaleValue, newShapes[i].skewValue));
+
+                        PolylineClass new2 = new PolylineClass();
+
+                        allShapes.Add(new2.PolyLineFunc(newShapes[i].name, newShapes[i].figPoints, newShapes[i].lineColor, newShapes[i].lineThickness));
+                    }
+                    if (newShapes[i].type == "Polygon")
+                    {
+                        shapesForParse.Add(new ExtraForJSON(newShapes[i].type,
+                            newShapes[i].name, newShapes[i].figPoints,
+                            newShapes[i].lineThickness,
+                            newShapes[i].lineColor, 
+                            newShapes[i].fillColor, newShapes[i].rotateAngle,
+                            newShapes[i].rotateCenter, newShapes[i].scaleValue,
+                            newShapes[i].skewValue, "0"));
+
+                        allName.Add(new ShapeName(newShapes[i].name, newShapes[i].type, newShapes[i].rotateAngle, newShapes[i].rotateCenter, newShapes[i].scaleValue, newShapes[i].skewValue));
+
+                        MultipleCornersClass new3 = new MultipleCornersClass();
+
+                        allShapes.Add(new3.PolygonFunc(newShapes[i].name, newShapes[i].figPoints, newShapes[i].lineColor, newShapes[i].lineThickness, newShapes[i].fillColor));
+                    }
+                    if (newShapes[i].type == "Rectangle")
+                    {
+                        shapesForParse.Add(new ExtraForJSON(newShapes[i].type,
+                            newShapes[i].name, newShapes[i].figPoints,
+                            newShapes[i].height, newShapes[i].width,
+                            newShapes[i].lineThickness,
+                            newShapes[i].lineColor,
+                            newShapes[i].fillColor, newShapes[i].rotateAngle,
+                            newShapes[i].rotateCenter, newShapes[i].scaleValue,
+                            newShapes[i].skewValue));
+
+                        allName.Add(new ShapeName(newShapes[i].name, newShapes[i].type, newShapes[i].rotateAngle, newShapes[i].rotateCenter, newShapes[i].scaleValue, newShapes[i].skewValue));
+
+                        RectangleClass new4 = new RectangleClass();
+
+                        allShapes.Add(new4.RectangleFunc(newShapes[i].name, newShapes[i].figPoints, newShapes[i].width, newShapes[i].height, newShapes[i].lineColor, newShapes[i].lineThickness,
+                            newShapes[i].fillColor));
+                    }
+                    if (newShapes[i].type == "Ellipse")
+                    {
+                        shapesForParse.Add(new ExtraForJSON(newShapes[i].type,
+                           newShapes[i].name, newShapes[i].figPoints,
+                           newShapes[i].height, newShapes[i].width,
+                           newShapes[i].lineThickness,
+                           newShapes[i].lineColor,
+                           newShapes[i].fillColor, newShapes[i].rotateAngle,
+                           newShapes[i].rotateCenter, newShapes[i].scaleValue,
+                           newShapes[i].skewValue, "0"));
+
+                        allName.Add(new ShapeName(newShapes[i].name, newShapes[i].type, newShapes[i].rotateAngle, newShapes[i].rotateCenter, newShapes[i].scaleValue, newShapes[i].skewValue));
+
+                        EllipseClass new5 = new EllipseClass();
+
+                        allShapes.Add(new5.EllipseFunc(newShapes[i].name, newShapes[i].figPoints, newShapes[i].width, newShapes[i].height,
+                            newShapes[i].lineColor, newShapes[i].lineThickness, newShapes[i].fillColor));
+                    }
+                    if (newShapes[i].type == "Path")
+                    {
+                        shapesForParse.Add(new ExtraForJSON(newShapes[i].type,
+                          newShapes[i].name, newShapes[i].pathCommands,
+                          newShapes[i].lineThickness,
+                          newShapes[i].lineColor,
+                          newShapes[i].fillColor, newShapes[i].rotateAngle,
+                          newShapes[i].rotateCenter, newShapes[i].scaleValue,
+                          newShapes[i].skewValue, "1", "2", "3", "4"));
+
+                        allName.Add(new ShapeName(newShapes[i].name, newShapes[i].type, newShapes[i].pathCommands, newShapes[i].rotateAngle, newShapes[i].rotateCenter, newShapes[i].scaleValue, newShapes[i].skewValue));
+
+                        MixLineClass new6 = new MixLineClass();
+
+                        allShapes.Add(new6.PathFunc(newShapes[i].name, newShapes[i].pathCommands, newShapes[i].lineColor, newShapes[i].lineThickness, newShapes[i].fillColor));
+                    }
+
+                }
+
+                //foreach(var item in allShapes)
+                //{
+                  //  newCanvas.Children.Add(item);
+                //}
+                Debug.WriteLine(allShapes.Count);
+                for (int i = 0; i < allShapes.Count; i++)
+                {
+                    var TransGroup = new TransformGroup();
+                    TransGroup.Children.Add(allName[i].rotateTransform);
+                    TransGroup.Children.Add(allName[i].skewTransform);
+                    TransGroup.Children.Add(allName[i].scaleTransform);
+                    allShapes[i].RenderTransform = TransGroup;
+                    newCanvas.Children.Add(allShapes[i]);
+                }
             }
             if (PathFile.GetExtension(path) == ".xml")
             {
                 newCanvas.Children.RemoveAll(allShapes);
-                Tuple<ObservableCollection<Shape>, ObservableCollection<ShapeName>> tulup = xmlloaders.Load(path);
+                Tuple<ObservableCollection<Shape>, ObservableCollection<ShapeName>, ObservableCollection<ExtraForJSON>> tulup = xmlloaders.Load(path);
                 ObservableCollection<Shape> temp = new ObservableCollection<Shape>(tulup.Item1);
                 ObservableCollection<ShapeName> temp1 = new ObservableCollection<ShapeName>(tulup.Item2);
                 allShapes = temp;
                 allName = temp1;
+                shapesForParse = new ObservableCollection<ExtraForJSON>(tulup.Item3);
+
                 Debug.WriteLine(allShapes.Count);
                 for (int i = 0; i < allShapes.Count; i++)
                 {

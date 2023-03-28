@@ -14,13 +14,15 @@ namespace Paint.Models
 {
     public class XMLLoader
     {
-        public Tuple<ObservableCollection<Shape>, ObservableCollection<ShapeName>> Load(string path)
+        public Tuple<ObservableCollection<Shape>, ObservableCollection<ShapeName>, ObservableCollection<ExtraForJSON>> Load(string path)
         {
             string[] Colors = { "Red", "Yellow", "Blue", "Green", "Black" };
 
             var ParseAllShapes = new ObservableCollection<Shape>();
 
             var ParseAllNames = new ObservableCollection<ShapeName>();
+
+            var ParseAllExtra = new ObservableCollection<ExtraForJSON>();
 
             var xmlDoc = new XmlDocument();
 
@@ -82,6 +84,11 @@ namespace Paint.Models
                     ParseAllShapes.Add(newMixLine.PathFunc(ShapeName, PathCommands, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
                    
                     ParseAllNames.Add(new ShapeName(ShapeName, ShapeType, PathCommands, ShapeRotateAngle, ShapeRotateCenter, ShapeScale, ShapeSkew));
+
+                    ParseAllExtra.Add(new ExtraForJSON(ShapeType, ShapeName, PathCommands,
+                        int.Parse(ShapeThickness), ShapeStroke, ShapeFill, ShapeRotateAngle,
+                        ShapeRotateCenter, ShapeScale, ShapeSkew,
+                        "1", "2", "3", "4"));
                 }
                 else
                 {
@@ -96,6 +103,11 @@ namespace Paint.Models
                     string LineYPoint = ShapeSelect.SelectSingleNode("YPoint")?.InnerText;
                     LineClass newLine = new LineClass();
                     ParseAllShapes.Add(newLine.LineFunc(ShapeName, LineXPoint, LineYPoint, ShapeStroke, int.Parse(ShapeThickness)));
+
+                    ParseAllExtra.Add(new ExtraForJSON(
+                        ShapeType, ShapeName, LineXPoint, LineYPoint,
+                        int.Parse(ShapeThickness), ShapeStroke, ShapeRotateAngle,
+                        ShapeRotateCenter, ShapeScale, ShapeSkew));
                 }
 
                 /////////////////////////////////////////////// PARSE POLYLINE //////////////////////////////////////////////
@@ -104,6 +116,12 @@ namespace Paint.Models
                 {
                     PolylineClass newPoly = new PolylineClass();
                     ParseAllShapes.Add(newPoly.PolyLineFunc(ShapeName, ShapePoints, ShapeStroke, int.Parse(ShapeThickness)));
+                
+                    ParseAllExtra.Add(new ExtraForJSON(
+                        ShapeType, ShapeName, ShapePoints,
+                        int.Parse(ShapeThickness), ShapeStroke,
+                        ShapeRotateAngle, ShapeRotateCenter, ShapeScale,
+                        ShapeSkew));
                 }
 
                 /////////////////////////////////////////////// PARSE POLYGON //////////////////////////////////////////////
@@ -112,6 +130,12 @@ namespace Paint.Models
                 {
                     MultipleCornersClass newPolygon = new MultipleCornersClass();
                     ParseAllShapes.Add(newPolygon.PolygonFunc(ShapeName, ShapePoints, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
+
+                    ParseAllExtra.Add(new ExtraForJSON(
+                        ShapeType, ShapeName, ShapePoints,
+                        int.Parse(ShapeThickness), ShapeStroke,
+                        ShapeFill, ShapeRotateAngle, ShapeRotateCenter,
+                        ShapeScale, ShapeSkew, "1"));
                 }
 
                 /////////////////////////////////////////////// PARSE ELLIPSE //////////////////////////////////////////////
@@ -120,6 +144,12 @@ namespace Paint.Models
                 {
                     EllipseClass newEllipse = new EllipseClass();
                     ParseAllShapes.Add(newEllipse.EllipseFunc(ShapeName, ShapePoints, ShapeWidth, ShapeHeight, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
+
+                    ParseAllExtra.Add(new ExtraForJSON(
+                        ShapeType, ShapeName, ShapePoints,
+                        ShapeHeight, ShapeWidth, int.Parse(ShapeThickness),
+                        ShapeStroke, ShapeFill, ShapeRotateAngle, ShapeRotateCenter,
+                        ShapeScale, ShapeSkew, "1"));
                 }
 
                 /////////////////////////////////////////////// PARSE Rectangle //////////////////////////////////////////////
@@ -128,11 +158,19 @@ namespace Paint.Models
                 {
                     RectangleClass newRectangle = new RectangleClass();
                     ParseAllShapes.Add(newRectangle.RectangleFunc(ShapeName, ShapePoints, ShapeWidth, ShapeHeight, ShapeStroke, int.Parse(ShapeThickness), ShapeFill));
+
+                    ParseAllExtra.Add(new ExtraForJSON(
+                        ShapeType, ShapeName, ShapePoints,
+                        ShapeHeight, ShapeWidth, int.Parse(ShapeThickness),
+                        ShapeStroke, ShapeFill, ShapeRotateAngle, ShapeRotateCenter,
+                        ShapeScale, ShapeSkew));
                 }
 
             }
 
-            return Tuple.Create(ParseAllShapes, ParseAllNames);
+
+
+            return Tuple.Create(ParseAllShapes, ParseAllNames, ParseAllExtra);
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Paint.Models
 {
-    public class LineClass : Line
+    public class LineClass : Shape
     {
         public LineClass() { }
         private Line _shapeLine { get; set; }
@@ -35,7 +35,9 @@ namespace Paint.Models
             return shapeLine;
         }
 
-
-
+        protected override Geometry? CreateDefiningGeometry()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

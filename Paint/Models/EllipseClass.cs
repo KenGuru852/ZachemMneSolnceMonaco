@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Paint.Models
 {
-    public class EllipseClass : Ellipse
+    public class EllipseClass : Shape
     { 
         public EllipseClass() { }
         private Ellipse _shapeEllipse { get; set; }
@@ -46,6 +46,11 @@ namespace Paint.Models
             shapeEllipse.Height = int.Parse(_Height);
             shapeEllipse.Fill = Brush.Parse(_FillColor);
             return shapeEllipse;
+        }
+
+        protected override Geometry? CreateDefiningGeometry()
+        {
+            throw new NotImplementedException();
         }
     }
 }
