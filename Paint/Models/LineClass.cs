@@ -23,7 +23,6 @@ namespace Paint.Models
                 _shapeLine = value;
             }
         }
-        
         public Line LineFunc(string _Name ,string _FirstPoint, string _SecondPoint, string _LineColor, int _LineThickness)
         {
             shapeLine = new Line();

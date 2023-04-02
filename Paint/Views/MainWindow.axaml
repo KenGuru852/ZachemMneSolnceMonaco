@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:views="clr-namespace:Paint.Views"
 		xmlns:models="clr-namespace:Paint.Models"
+		DragDrop.AllowDrop="True"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" Height="830" Width="1400"
         x:Class="Paint.Views.MainWindow"
         Icon="/Assets/LeshkaFace.jpg"
@@ -61,13 +62,13 @@
 				<MenuItem Header="_Exit"/>
 			</MenuItem>
 		</Menu> -->
-		<Button Click="ExportClick" Name="Экспортировать" HorizontalAlignment="Right" Height="30" Width="200" Grid.Column="0" Grid.Row="0">
+		<Button DragDrop.AllowDrop="False" Click="ExportClick" Name="Экспортировать" HorizontalAlignment="Right" Height="30" Width="200" Grid.Column="0" Grid.Row="0">
 			Экспортировать
 		</Button>
-		<Button Click="ImportClick" Name="Импортировать" Height="30" Width="200" Grid.Column="0" Grid.Row="0">
+		<Button DragDrop.AllowDrop="False" Click="ImportClick" Name="Импортировать" Height="30" Width="200" Grid.Column="0" Grid.Row="0">
 			Импортировать
 		</Button>
-		<ComboBox SelectedIndex="{Binding
+		<ComboBox DragDrop.AllowDrop="False" SelectedIndex="{Binding
 				  comboBoxShape}" HorizontalContentAlignment="Center" Width="400" Grid.Row="1" Grid.Column="0">
 			<ComboBoxItem>Прямая линия</ComboBoxItem>
 			<ComboBoxItem>Ломаная линия</ComboBoxItem>
@@ -76,19 +77,19 @@
 			<ComboBoxItem>Эллипс</ComboBoxItem>
 			<ComboBoxItem>Составная фигура</ComboBoxItem>
 		</ComboBox>
-		<ContentControl Grid.Column="0" Grid.Row="2" Content="{Binding
+		<ContentControl DragDrop.AllowDrop="False" Grid.Column="0" Grid.Row="2" Content="{Binding
 						Content}"/>
 
-		<Button Command="{Binding $parent[Window].DataContext.buttonAdd}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Grid.Row="4" Grid.Column="0">
+		<Button DragDrop.AllowDrop="False" Command="{Binding $parent[Window].DataContext.buttonAdd}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Grid.Row="4" Grid.Column="0">
 			Добавить
 		</Button>
-		<Button Command="{Binding buttonClear}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="200" Grid.Column="0" Grid.Row="4">
+		<Button DragDrop.AllowDrop="False" Command="{Binding buttonClear}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="200" Grid.Column="0" Grid.Row="4">
 			Сброс
 		</Button>
-		<Panel Grid.Row="2" Grid.Column="1">
-			<Canvas Name="canvas"/>
-		</Panel>
-		<ListBox SelectedIndex="{Binding listBoxIndex}" Items="{Binding allName}" SelectionMode="Single"  Grid.Row="2" Grid.Column="2">
+		<DockPanel DragDrop.AllowDrop="True" Grid.Row="2" Grid.Column="1">
+			<Canvas Grid.Column="1" Grid.Row="2" MinHeight="400" MinWidth="400" ClipToBounds="True" DragDrop.AllowDrop="True" Name="canvas"/>
+		</DockPanel>
+		<ListBox DragDrop.AllowDrop="False" SelectedIndex="{Binding listBoxIndex}" Items="{Binding allName}" SelectionMode="Single"  Grid.Row="2" Grid.Column="2">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid ColumnDefinitions="125, *">
@@ -100,7 +101,7 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<TextBlock FontSize="20" TextAlignment="Center" Text="{Binding CommandFormat}" Grid.Column="0" Grid.Row="3"></TextBlock>
+		<TextBlock DragDrop.AllowDrop="False" FontSize="20" TextAlignment="Center" Text="{Binding CommandFormat}" Grid.Column="0" Grid.Row="3"></TextBlock>
 	</Grid>
 
 </Window>
