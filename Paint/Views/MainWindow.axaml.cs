@@ -3,12 +3,14 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.VisualTree;
 using Paint.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Reactive;  
+using System.Reactive;
+using APoint = Avalonia.Point;
 
 namespace Paint.Views
 {
@@ -20,7 +22,8 @@ namespace Paint.Views
         private TranslateTransform originTT;
         private TranslateTransform changedPoints;
         private TransformGroup trGpoup;
-
+        private APoint pointPointerPressed;
+        private APoint pointerPositionIntoShape;
         public MainWindow()
         {
             InitializeComponent();
@@ -102,7 +105,102 @@ namespace Paint.Views
                 }
             }
         }
-      
+        private void OnPointerPressed(object? sender, PointerPressedEventArgs pointerPressedEventArgs)
+        {
+            
+            if (pointerPressedEventArgs.Source is Shape control)
+            {
+                if (control.DataContext is Paint.ViewModels.MainWindowViewModel rectangle)
+                {
+                    pointPointerPressed = pointerPressedEventArgs
+                        .GetPosition(
+                        this.GetVisualDescendants()
+                        .OfType<Canvas>()
+                        .FirstOrDefault(canvas => string.IsNullOrEmpty(canvas.Name) == false &&
+                        canvas.Name.Equals("canvas")));
+                    
+
+                        pointerPositionIntoShape = pointerPressedEventArgs.GetPosition(control);
+                        this.PointerMoved += PointerMoveDragShape;
+                        this.PointerReleased += PointerPressedReleasedDragShape;
+                }
+            }
+        }
+
+        private void PointerMoveDragShape(object? sender, PointerEventArgs pointerEventArgs)
+        {
+            string First = "";
+            string Second = "";
+            double StartXLine = 0;
+            double StartYLine = 0;
+
+            double EndXLine = 0;
+            double EndYLine = 0;
+            if (pointerEventArgs.Source is Avalonia.Controls.Shapes.Shape rectangle)
+            {
+                    Avalonia.Point currentPointerPosition = pointerEventArgs
+                    .GetPosition(
+                    this.GetVisualDescendants()
+                    .OfType<Canvas>()
+                    .FirstOrDefault());
+
+                    First = (currentPointerPosition.X - pointerPositionIntoShape.X).ToString();
+                    Second = (currentPointerPosition.Y - pointerPositionIntoShape.Y).ToString();
+
+                    rectangle.Margin = new(double.Parse(First), double.Parse(Second));
+            }
+            /*else if (pointerEventArgs.Source is Avalonia.Controls.Shapes.Ellipse ellipse)
+            {
+                Avalonia.Point currentPointerPosition = pointerEventArgs
+                .GetPosition(
+                this.GetVisualDescendants()
+                .OfType<Canvas>()
+                .FirstOrDefault());
+
+                First = (currentPointerPosition.X - pointerPositionIntoShape.X).ToString();
+                Second = (currentPointerPosition.Y - pointerPositionIntoShape.Y).ToString();
+
+                ellipse.Margin = new(double.Parse(First), double.Parse(Second));
+            }
+            else if (pointerEventArgs.Source is Avalonia.Controls.Shapes.Line Line)
+            {
+                Avalonia.Point currentPointerPosition = pointerEventArgs
+                .GetPosition(
+                this.GetVisualDescendants()
+                .OfType<Canvas>()
+                .FirstOrDefault());
+
+                First = (currentPointerPosition.X - pointerPositionIntoShape.X).ToString();
+                Second = (currentPointerPosition.Y - pointerPositionIntoShape.Y).ToString();
+
+                Debug.WriteLine(First);
+                Debug.WriteLine(Second);
+
+                StartXLine = Line.StartPoint.X;
+                StartYLine = Line.StartPoint.Y;
+
+                EndXLine = Line.EndPoint.X;
+                EndYLine = Line.EndPoint.Y;
+
+                StartXLine = StartXLine + double.Parse(First);
+                StartYLine = StartYLine + double.Parse(Second);
+
+                EndXLine = EndXLine + double.Parse(First);
+                EndYLine = EndYLine + double.Parse(Second);
+
+                Line.Margin = new(double.Parse(First), double.Parse(Second));
+
+                //Line.StartPoint = new APoint(StartXLine, StartYLine);
+                //Line.EndPoint = new APoint(EndXLine, EndYLine);
+            }*/
+        }           
+               
+        private void PointerPressedReleasedDragShape(object? sender,
+            PointerReleasedEventArgs pointerReleasedEventArgs)
+        {
+            this.PointerMoved -= PointerMoveDragShape;
+            this.PointerReleased -= PointerPressedReleasedDragShape;
+        }
 
     }
 }

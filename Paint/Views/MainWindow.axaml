@@ -86,8 +86,8 @@
 		<Button DragDrop.AllowDrop="False" Command="{Binding buttonClear}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="200" Grid.Column="0" Grid.Row="4">
 			Сброс
 		</Button>
-		<DockPanel DragDrop.AllowDrop="True" Grid.Row="2" Grid.Column="1">
-			<Canvas Grid.Column="1" Grid.Row="2" MinHeight="400" MinWidth="400" ClipToBounds="True" DragDrop.AllowDrop="True" Name="canvas"/>
+		<DockPanel PointerPressed="OnPointerPressed" DragDrop.AllowDrop="True" Grid.Row="2" Grid.Column="1">
+			<Canvas PointerPressed="OnPointerPressed" Grid.Column="1" Grid.Row="2" MinHeight="400" MinWidth="400" ClipToBounds="True" DragDrop.AllowDrop="True" Name="canvas"/>
 		</DockPanel>
 		<ListBox DragDrop.AllowDrop="False" SelectedIndex="{Binding listBoxIndex}" Items="{Binding allName}" SelectionMode="Single"  Grid.Row="2" Grid.Column="2">
 			<ListBox.ItemTemplate>
